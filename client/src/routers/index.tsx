@@ -4,6 +4,8 @@ import Register from "../components/forms/Register";
 import AuthPage from "../page/auth/AuthPage";
 import Login from "../components/forms/Login";
 import Header from "../components/common/Header";
+import NotFound404 from "../page/NotFound404";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   // {
@@ -22,12 +24,17 @@ export const router = createBrowserRouter([
   // },
   {
     path: "/",
+    errorElement: <NotFound404 />,
     element: <Header />,
     children: [
       {
         index: true,
         // path: "/homePage",
-        element: <HomePage />,
+        element: (
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/auth",

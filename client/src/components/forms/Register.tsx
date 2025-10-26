@@ -2,9 +2,11 @@ import ValidatedInput from "../../utils/ValidatedInput";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../stores/store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../stores/store";
 import { createUser } from "../../apis/user.api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -12,6 +14,12 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [changeTypePass, setChangeTypePass] = useState<"text" | "password">(
+    "password"
+  );
+  const [changeTypeComfiPass, setChangeTypeComfiPass] = useState<
+    "text" | "password"
+  >("password");
 
   // const { loading, error } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
@@ -19,7 +27,10 @@ export default function Register() {
 
   useEffect(() => {
     setSuccess(
-      userName && email && password && confirmPassword === password
+      userName &&
+        validateEmail(email) &&
+        password &&
+        confirmPassword === password
         ? false
         : true
     );
@@ -38,6 +49,7 @@ export default function Register() {
       name: userName,
       email: email,
       password: password,
+      rule: "user",
     };
 
     dispatch(createUser(newUser))
@@ -75,30 +87,54 @@ export default function Register() {
           tooltipMsg="Nhập đúng định dạng: tên@gmail.tên_miền"
         />
 
-        <ValidatedInput
-          label="Mật khẩu"
-          id="password"
-          type="password"
-          value={password}
-          onChange={setPassword}
-          validator={validatePassword}
-          tooltipMsg={
-            <>
-              <p className="m-0">Mật khẩu không được để trống</p>
-              <p className="m-0">Mật khẩu tối thiểu 8 ký tự</p>
-            </>
-          }
-        />
+        <div className="relative">
+          <ValidatedInput
+            label="Mật khẩu"
+            id="password"
+            type={changeTypePass}
+            value={password}
+            onChange={setPassword}
+            validator={validatePassword}
+            tooltipMsg={
+              <>
+                <p className="m-0">Mật khẩu không được để trống</p>
+                <p className="m-0">Mật khẩu tối thiểu 8 ký tự</p>
+              </>
+            }
+          />
+          <FontAwesomeIcon
+            icon={changeTypePass === "password" ? faEyeSlash : faEye}
+            className="z-1000 absolute right-2 top-8 hover:cursor-pointer hover:text-cyan-500"
+            onClick={() =>
+              setChangeTypePass &&
+              setChangeTypePass(
+                changeTypePass === "password" ? "text" : "password"
+              )
+            }
+          />
+        </div>
 
-        <ValidatedInput
-          label="Xác nhận mật khẩu"
-          id="confirmPassword"
-          type="password"
-          value={confirmPassword}
-          onChange={setConfirmPassword}
-          validator={validateConfirmPassword}
-          tooltipMsg="Mật khẩu xác nhận phải trùng khớp với mật khẩu và không được để trống"
-        />
+        <div className="relative">
+          <ValidatedInput
+            label="Xác nhận mật khẩu"
+            id="confirmPassword"
+            type={changeTypeComfiPass}
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            validator={validateConfirmPassword}
+            tooltipMsg="Mật khẩu xác nhận phải trùng khớp với mật khẩu và không được để trống"
+          />
+          <FontAwesomeIcon
+            icon={changeTypeComfiPass === "password" ? faEyeSlash : faEye}
+            className="z-1000 absolute right-2 top-8 hover:cursor-pointer hover:text-cyan-500"
+            onClick={() =>
+              setChangeTypeComfiPass &&
+              setChangeTypeComfiPass(
+                changeTypeComfiPass === "password" ? "text" : "password"
+              )
+            }
+          />
+        </div>
 
         <Button
           type="submit"

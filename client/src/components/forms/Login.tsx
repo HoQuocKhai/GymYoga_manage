@@ -1,7 +1,40 @@
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import type { AppDispatch, RootState } from "../../stores/store";
+import type React from "react";
+import { useEffect, useState } from "react";
+import { getUserlist } from "../../apis/user.api";
 export default function Login() {
+  const { users } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    const user = users.find(
+      (user) => user.email === input.email && user.password === input.password
+    );
+
+    if (user) {
+      navigate("/");
+    } else {
+      alert("mật khẩu hoặc email không đúng");
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getUserlist());
+  }, []);
+
   return (
     <div className="flex flex-col items-center mt-[5rem] not-last:">
       <form className="w-[448px] h-[384px] flex flex-col flex-1 gap-4 rounded-[8px] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)] p-8">
@@ -18,7 +51,10 @@ export default function Login() {
           <Form.Control
             type="email"
             id="inputEmail"
+            name="email"
+            value={input.email}
             aria-describedby="emailHelpBlock"
+            onChange={handleChangeInput}
           />
         </div>
         <div>
@@ -31,10 +67,16 @@ export default function Login() {
           <Form.Control
             type="password"
             id="inputPassword5"
+            name="password"
+            value={input.password}
             aria-describedby="passwordHelpBlock"
+            onChange={handleChangeInput}
           />
         </div>
-        <Button className="w-full text-[15.0px] font-[500] font-[inter]">
+        <Button
+          className="w-full text-[15.0px] font-[500] font-[inter]"
+          onClick={handleSubmit}
+        >
           Đăng nhập
         </Button>
         <p className="text-center m-0 font-[inter]">

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { UserState } from "../types/userType";
-import { createUser } from "../apis/user.api";
+import { createUser, getUserlist } from "../apis/user.api";
 
 const initialState: UserState = {
     users: [],
@@ -20,12 +20,26 @@ const userSlice = createSlice({
             })
             .addCase(createUser.fulfilled, (state, action) => {
                 state.loading = false;
+                localStorage.setItem("user", JSON.stringify(action.payload));
                 state.users.push(action.payload);
             })
             .addCase(createUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+            .addCase(getUserlist.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getUserlist.fulfilled, (state, action) => {
+                state.loading = false;
+                state.users = action.payload;
+            })
+            .addCase(getUserlist.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
             });
+
     },
 });
 

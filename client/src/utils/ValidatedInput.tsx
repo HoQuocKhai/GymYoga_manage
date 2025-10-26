@@ -44,14 +44,13 @@ export default function ValidatedInput({
           {label}
         </Form.Label>
 
-        {focused && (
+        {value && (
           <FontAwesomeIcon
             icon={!isValid ? faCircleXmark : faCircleCheck}
             style={{ color: !isValid ? "#ff6666" : "#63E6BE" }}
           />
         )}
       </div>
-
       <Tooltip
         title={!isValid ? tooltipMsg : ""}
         color="red"
@@ -62,6 +61,7 @@ export default function ValidatedInput({
           ref={inputRef}
           id={id}
           type={type}
+          name={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}

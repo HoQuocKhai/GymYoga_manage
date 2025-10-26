@@ -5,6 +5,19 @@
       "name": "Hồ Quốc Khải",
       "email": "cocabon123@gmail.com",
       "password": "khaiho123"
+    },
+    {
+      "id": "10ec",
+      "name": "a",
+      "email": "namtran94@phenikaa.com",
+      "password": "khaiho123"
+    },
+    {
+      "id": "107e",
+      "name": "Co ca keo",
+      "email": "rikkeiacademy@gmail.com",
+      "password": "123123123",
+      "rule": "user"
     }
   ]
 }
