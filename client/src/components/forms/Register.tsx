@@ -7,6 +7,7 @@ import type { AppDispatch } from "../../stores/store";
 import { createUser } from "../../apis/user.api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import type { User } from "../../types/userType";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -45,7 +46,7 @@ export default function Register() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newUser = {
+    const newUser: User = {
       name: userName,
       email: email,
       password: password,

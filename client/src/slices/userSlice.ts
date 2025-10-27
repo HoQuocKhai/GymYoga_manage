@@ -14,19 +14,21 @@ const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            // Thêm tài khoản người dùng
             .addCase(createUser.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
             .addCase(createUser.fulfilled, (state, action) => {
                 state.loading = false;
-                localStorage.setItem("user", JSON.stringify(action.payload));
+                sessionStorage.setItem("user", JSON.stringify(action.payload));
                 state.users.push(action.payload);
             })
             .addCase(createUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })
+            //fetch danh sách người dùng
             .addCase(getUserlist.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -39,7 +41,6 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             });
-
     },
 });
 

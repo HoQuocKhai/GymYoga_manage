@@ -1,0 +1,33 @@
+/* Căn giữa pagination (đề phòng chưa có) */
+.ant-table-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+/* Style nút phân trang */
+.ant-pagination-item {
+  border-radius: 8px; /* bo góc */
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+}
+
+/* Nút đang active */
+.ant-pagination-item-active {
+  border-color: #1677ff !important; /* màu chính của antd */
+  background-color: #1677ff !important;
+}
+
+.ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* Hover đẹp hơn */
+.ant-pagination-item:hover {
+  border-color: #1677ff;
+}
+
+/* Nút mũi tên trái/phải */
+.ant-pagination-prev,
+.ant-pagination-next {
+  border-radius: 50%;
+}

@@ -6,6 +6,8 @@ import Login from "../components/forms/Login";
 import Header from "../components/common/Header";
 import NotFound404 from "../page/NotFound404";
 import ProtectedRoute from "../components/ProtectedRoute";
+import BookingPage from "../page/BookingPage";
+import ManageCourses from "../page/admin/manageCourses";
 
 export const router = createBrowserRouter([
   // {
@@ -30,11 +32,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         // path: "/homePage",
-        element: (
-          <ProtectedRoute>
-            <HomePage />
-          </ProtectedRoute>
-        ),
+        element: <HomePage />,
       },
       {
         path: "/auth",
@@ -47,6 +45,27 @@ export const router = createBrowserRouter([
           {
             path: "/auth/register",
             element: <Register />,
+          },
+        ],
+      },
+      {
+        path: "/booking",
+        element: (
+          <ProtectedRoute>
+            <BookingPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin",
+        children: [
+          {
+            path: "/admin/manage-courses",
+            element: <ManageCourses />,
+          },
+          {
+            path: "/admin/statistical-courses",
+            element: <ManageCourses />,
           },
         ],
       },

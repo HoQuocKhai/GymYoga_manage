@@ -1,6 +1,39 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import type { User } from "../../types/userType";
+import { Button, Popover } from "antd";
+import { useState } from "react";
+import { LogoutOutlined } from "@ant-design/icons";
+import Swal from "sweetalert2";
 
 export default function Header() {
+  const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
+  const navigate = useNavigate();
+  //Popober
+  const [open, setOpen] = useState(false);
+
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
+
+  //Log out
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Success!",
+      text: "Đã đăng xuất thành công",
+      icon: "success",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    sessionStorage.setItem("user", JSON.stringify(null));
+    setTimeout(() => {
+      navigate("/auth/login");
+    }, 2100);
+  };
+
   return (
     <div>
       <div className="flex flex-1 justify-between text-white bg-[#1F2937] px-[0.25rem] py-[0.5rem] md:px-[4rem] items-center sm:px-[2rem]">
@@ -17,18 +50,49 @@ export default function Header() {
           >
             Trang chủ
           </Link>
-          <Link
-            to="/"
-            className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
-          >
-            Lịch tập
-          </Link>
-          <Link
-            to="/auth/login"
-            className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
-          >
-            Đăng nhập
-          </Link>
+          {user?.rule === "admin" ? (
+            <Link
+              to="/admin/manage-courses"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+            >
+              Quản lý lịch
+            </Link>
+          ) : (
+            <Link
+              to="/booking"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+            >
+              Lịch đã đặt
+            </Link>
+          )}
+          {user ? (
+            <Popover
+              content={
+                <Button
+                  onClick={() => {
+                    hide();
+                    handleLogOut();
+                  }}
+                >
+                  Log out
+                  <LogoutOutlined />
+                </Button>
+              }
+              open={open}
+              trigger="click"
+              onOpenChange={handleOpenChange}
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse hover:cursor-pointer"
+            >
+              {user.name}
+            </Popover>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+            >
+              Đăng nhập
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />

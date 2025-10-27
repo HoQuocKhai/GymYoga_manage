@@ -5,10 +5,13 @@ import type { AppDispatch, RootState } from "../../stores/store";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { getUserlist } from "../../apis/user.api";
+import Swal from "sweetalert2";
+
 export default function Login() {
   const { users } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -25,9 +28,33 @@ export default function Login() {
     );
 
     if (user) {
-      navigate("/");
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        showConfirmButton: false,
+        text: "Please wait a moment!",
+        timer: 2900,
+      });
+      setTimeout(() => {
+        sessionStorage.setItem("user", JSON.stringify(user));
+        navigate("/");
+      }, 3000);
+    } else if (input.email === "" || input.password === "") {
+      Swal.fire({
+        title: "Error!",
+        text: `${
+          input.email === "" ? "email" : "password"
+        } không được để trống`,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     } else {
-      alert("mật khẩu hoặc email không đúng");
+      Swal.fire({
+        title: "Error!",
+        text: "Email hoặc mật khẩu không trùng khớp",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
