@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../slices/userSlice";
 import coursesReducer from "../slices/coursesSlice"
+import bookingReducer from "../slices/bookingSlice"
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        courses: coursesReducer
+        courses: coursesReducer,
+        booking: bookingReducer
     },
 });
 

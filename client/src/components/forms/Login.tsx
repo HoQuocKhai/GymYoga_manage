@@ -98,6 +98,11 @@ export default function Login() {
             value={input.password}
             aria-describedby="passwordHelpBlock"
             onChange={handleChangeInput}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit();
+              }
+            }}
           />
         </div>
         <Button

@@ -8,7 +8,7 @@
       "rule": "admin"
     },
     {
-      "id": "e9e7",
+      "id": "002",
       "name": "Hồ Quốc Khải",
       "email": "cocabon123@gmail.com",
       "password": "khaiho123",
@@ -46,8 +46,9 @@
       "description": "Đốt cháy calories với những điệu nhảy sôi động.",
       "price": 200000,
       "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613110/ImageCard3_eyocgx.png"
-    },{
-      "id": 101,
+    },
+    {
+      "id": 104,
       "name": "Gym Hiện Đại",
       "type": "Gym",
       "description": "Tập luyện với các thiết bị hiện đại.",
@@ -55,7 +56,7 @@
       "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760609733/imageCard1_li42pj.png"
     },
     {
-      "id": 102,
+      "id": 105,
       "name": "Yoga Giảm Cân",
       "type": "Yoga",
       "description": "Thư giãn và cân bằng tâm trí.",
@@ -63,14 +64,15 @@
       "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613019/ImageCard2_ekcfhy.png"
     },
     {
-      "id": 103,
+      "id": 106,
       "name": "Zumba Cường Độ Cao",
       "type": "Zumba",
       "description": "Đốt cháy calories với những điệu nhảy sôi động.",
       "price": 200000,
       "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613110/ImageCard3_eyocgx.png"
-    },{
-      "id": 101,
+    },
+    {
+      "id": 107,
       "name": "Gym Hiện Đại",
       "type": "Gym",
       "description": "Tập luyện với các thiết bị hiện đại.",
@@ -78,7 +80,7 @@
       "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760609733/imageCard1_li42pj.png"
     },
     {
-      "id": 102,
+      "id": 108,
       "name": "Yoga Giảm Cân",
       "type": "Yoga",
       "description": "Thư giãn và cân bằng tâm trí.",
@@ -86,7 +88,7 @@
       "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613019/ImageCard2_ekcfhy.png"
     },
     {
-      "id": 103,
+      "id": 109,
       "name": "Zumba Cường Độ Cao",
       "type": "Zumba",
       "description": "Đốt cháy calories với những điệu nhảy sôi động.",
@@ -96,20 +98,46 @@
   ],
   "bookings": [
     {
-      "id": 501,
-      "userId": 2,
+      "id": "501",
+      "userId": "002",
       "courseId": 101,
-      "bookingDate": "2025-10-01",
-      "bookingTime": "09:00",
-      "status": "confirmed"
+      "bookingDate": "2025-10-30",
+      "bookingTime": "07:00",
+      "status": "confirmed",
+      "name": "Hồ Quốc Khải",
+      "email": "cocabon123@gmail.com",
+      "key": "501",
+      "coursesId": "105"
     },
     {
-      "id": 502,
-      "userId": 2,
+      "id": "502",
+      "userId": "002",
       "courseId": 102,
       "bookingDate": "2025-10-05",
       "bookingTime": "19:30",
       "status": "pending"
+    },
+    {
+      "id": "503",
+      "userId": "002",
+      "courseId": 103,
+      "bookingDate": "2025-10-10",
+      "bookingTime": "17:30",
+      "status": "pending"
+    },
+    {
+      "id": "105",
+      "userId": "002",
+      "courseId": 105,
+      "bookingDate": "2025-10-29",
+      "bookingTime": "07:07"
+    },
+    {
+      "id": "106",
+      "userId": "002",
+      "courseId": 106,
+      "bookingDate": "2025-10-29",
+      "bookingTime": ""
     }
   ]
 }

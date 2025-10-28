@@ -6,7 +6,7 @@ import Login from "../components/forms/Login";
 import Header from "../components/common/Header";
 import NotFound404 from "../page/NotFound404";
 import ProtectedRoute from "../components/ProtectedRoute";
-import BookingPage from "../page/BookingPage";
+import BookingPage from "../page/user/BookingPage";
 import ManageCourses from "../page/admin/manageCourses";
 
 export const router = createBrowserRouter([

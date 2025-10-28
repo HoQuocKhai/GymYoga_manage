@@ -9,7 +9,7 @@ const initialState: CoursesState = {
 };
 
 const coursesSlice = createSlice({
-    name: "user",
+    name: "courses",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
