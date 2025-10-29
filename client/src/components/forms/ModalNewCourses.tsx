@@ -1,10 +1,11 @@
-import { DatePicker, Modal, Select, TimePicker } from "antd";
+import { DatePicker, Form, Modal, Select, TimePicker } from "antd";
 // import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../stores/store"; // ⚠️ chỉnh path đúng với store của bạn
+import type { AppDispatch } from "../../stores/store";
 import { addBooking } from "../../apis/booking.api";
 import type { Booking } from "../../types/userType";
+import dayjs from "dayjs";
 
 interface ModalNewCoursesProps {
   open: boolean;
@@ -19,23 +20,21 @@ export default function ModalNewCourses({
 }: ModalNewCoursesProps) {
   const dispatch = useDispatch<AppDispatch>();
 
-  // ✅ kiểu dữ liệu rõ ràng
   const [formData, setFormData] = useState({
-    coursesId: "",
+    courseId: "pickerClass",
     bookingDate: "",
-    bookingTime: "",
+    bookingTime: "pickerTime",
   });
 
-  // ✅ Lấy user từ sessionStorage an toàn
   const storedUser = sessionStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
 
-  // ✅ Hàm thay đổi form
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  // ✅ Submit
+  // const configTypeDate = dayjs(formData.bookingDate, "YYYY-MM-DD");
+
   const handleSubmit = async () => {
     if (!user || !user.id) {
       alert("Không tìm thấy thông tin người dùng!");
@@ -43,9 +42,9 @@ export default function ModalNewCourses({
     }
 
     const newBooking: Booking = {
-      id: formData.coursesId,
+      id: formData.courseId,
       userId: String(user.id),
-      courseId: +formData.coursesId,
+      courseId: +formData.courseId,
       bookingDate: formData.bookingDate,
       bookingTime: formData.bookingTime,
     };
@@ -53,16 +52,14 @@ export default function ModalNewCourses({
     try {
       await dispatch(addBooking(newBooking));
       onOk(); // đóng modal
-      setFormData({ coursesId: "", bookingDate: "", bookingTime: "" });
+      setFormData({
+        courseId: "pickerClass",
+        bookingDate: "",
+        bookingTime: "pickerTime",
+      });
     } catch (error) {
       console.error("Lỗi khi thêm lịch:", error);
     }
-
-    setFormData({
-      coursesId: "",
-      bookingDate: "",
-      bookingTime: "",
-    });
   };
 
   return (
@@ -75,42 +72,60 @@ export default function ModalNewCourses({
       cancelText="Hủy"
     >
       <div className="flex flex-col gap-3">
-        <label>
-          Lớp học:
-          <Select
-            placeholder="Chọn lớp học"
-            className="w-full"
-            value={formData.coursesId}
-            onChange={(value) => handleChange("coursesId", value)}
-            options={[
-              { value: "104", label: "Yoga cơ bản" },
-              { value: "105", label: "Fitness nâng cao" },
-              { value: "106", label: "Cardio buổi sáng" },
-            ]}
-          />
-        </label>
+        <Form layout="vertical">
+          <Form.Item
+            label="Lớp học"
+            name="courseId"
+            rules={[{ required: true, message: "Vui lòng nhập lớp học" }]}
+          >
+            <Select
+              placeholder="Chọn lớp"
+              onChange={(value) => handleChange("courseId", value)}
+              value={formData.courseId}
+            >
+              <Select.Option disabled={true} value="pickerClass">
+                Chọn lớp
+              </Select.Option>
+              <Select.Option value="101">101</Select.Option>
+              <Select.Option value="102">102</Select.Option>
+              <Select.Option value="103">103</Select.Option>
+            </Select>
+          </Form.Item>
 
-        <label>
-          Ngày tập:
-          <DatePicker
-            className="w-full"
-            format="YYYY-MM-DD"
-            onChange={(_, dateString) =>
-              handleChange("bookingDate", dateString as string)
-            }
-          />
-        </label>
+          <Form.Item
+            label="Ngày tập"
+            name="bookingDate"
+            rules={[{ required: true, message: "Vui lòng chọn ngày tập" }]}
+          >
+            <DatePicker
+              format="YYYY-MM-DD"
+              className="w-full"
+              onChange={(_, dateString) => {
+                handleChange("bookingDate", dateString as string);
+              }}
+              // value={dayjs(formData.bookingDate, "YYYY-MM-DD")}
+            />
+          </Form.Item>
 
-        <label>
-          Giờ tập:
-          <TimePicker
-            className="w-full"
-            format="HH:mm"
-            onChange={(_, timeString) =>
-              handleChange("bookingTime", timeString as string)
-            }
-          />
-        </label>
+          <Form.Item
+            label="Giờ tập"
+            name="bookingTime"
+            rules={[{ required: true, message: "Vui lòng chọn giờ tập" }]}
+          >
+            <Select
+              placeholder="Chọn giờ"
+              onChange={(value) => handleChange("bookingTime", value)}
+              value={formData.bookingTime}
+            >
+              <Select.Option disabled={true} value="pickerTime">
+                Chọn giờ
+              </Select.Option>
+              <Select.Option value="07:00">07:00</Select.Option>
+              <Select.Option value="09:00">09:00</Select.Option>
+              <Select.Option value="18:00">18:00</Select.Option>
+            </Select>
+          </Form.Item>
+        </Form>
       </div>
     </Modal>
   );

@@ -40,3 +40,18 @@ export const updateBooking = createAsyncThunk(
         }
     }
 );
+
+//  delete booking
+export const deleteBooking = createAsyncThunk(
+    "deleteBooking",
+    async (deleteBooking: Booking) => {
+        try {
+            const res = await axios.delete(
+                `http://localhost:8080/bookings/${deleteBooking.id}`
+            );
+            return res.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+);

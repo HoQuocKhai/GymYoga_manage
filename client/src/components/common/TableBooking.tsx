@@ -5,7 +5,11 @@ import "../../assets/tableBooking.css";
 import type { Booking, User } from "../../types/userType";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../stores/store";
-import { getBooking, updateBooking } from "../../apis/booking.api"; // <-- no .ts
+import {
+  deleteBooking,
+  getBooking,
+  updateBooking,
+} from "../../apis/booking.api";
 import useFilterBooking from "../../hooks/useFilterBooking";
 import Swal from "sweetalert2";
 import ModalEditBooking from "../../components/forms/ModalEditBooking";
@@ -22,6 +26,8 @@ export default function TableBooking() {
   const { booking } = useSelector((state: RootState) => state.booking);
   const dispatch = useDispatch<AppDispatch>();
 
+  const [bookingList, setBookingList] = useState<Booking[]>();
+
   const bookingFilterWithUser = useFilterBooking(booking);
   const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
 
@@ -30,7 +36,8 @@ export default function TableBooking() {
 
   useEffect(() => {
     dispatch(getBooking());
-  }, [dispatch]);
+    setBookingList(booking);
+  }, [bookingList]);
 
   const bookingData = bookingFilterWithUser?.map((item) => ({
     ...item,
@@ -39,8 +46,42 @@ export default function TableBooking() {
     key: item.id, // Antd Table wants key
   }));
 
-  const handleConfirmDelete = () => {
-    // your delete flow (not addressed here)
+  const handleConfirmDelete = (record: Booking) => {
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteBooking(record));
+          setBookingList(
+            (prev) =>
+              (prev = prev?.filter(
+                (booking: Booking) => booking.courseId != record.courseId
+              ))
+          );
+          swalWithBootstrapButtons.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your imaginary file is safe :)",
+            icon: "error",
+          });
+        }
+      });
   };
 
   const handleEdit = (record: Booking) => {
@@ -104,14 +145,14 @@ export default function TableBooking() {
       render: (_, record: Booking) => (
         <div className="flex gap-1">
           <button
-            className="px-3 py-2 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md"
+            className="px-3 py-2 text-blue-500 hover:bg-blue-500 hover:text-white !rounded-md"
             onClick={() => handleEdit(record)}
           >
             Sửa
           </button>
           <button
-            className="px-3 py-2 text-red-500 hover:bg-red-500 hover:text-white rounded-md"
-            onClick={handleConfirmDelete}
+            className="px-3 py-2 text-red-500 hover:bg-red-500 hover:text-white !rounded-md"
+            onClick={() => handleConfirmDelete(record)}
           >
             Xoá
           </button>

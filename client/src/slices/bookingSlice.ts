@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { BookingState } from "../types/userType";
-import { addBooking, getBooking, updateBooking } from "../apis/booking.api";
+import { addBooking, deleteBooking, getBooking, updateBooking } from "../apis/booking.api";
 
 const initialState: BookingState = {
     booking: [],
@@ -41,7 +41,11 @@ const bookingSlice = createSlice({
                 if (index !== -1) {
                     state.booking[index] = action.payload;
                 }
-            });
+            })
+            // --- DELETE ---
+            .addCase(deleteBooking.fulfilled, (state, action) => {
+                state.booking = state.booking.filter((book) => book.id != action.payload)
+            })
     },
 });
 

@@ -7,7 +7,7 @@ import Header from "../components/common/Header";
 import NotFound404 from "../page/NotFound404";
 import ProtectedRoute from "../components/ProtectedRoute";
 import BookingPage from "../page/user/BookingPage";
-import ManageCourses from "../page/admin/manageCourses";
+import ManageCourses from "../page/admin/ManageCourses";
 
 export const router = createBrowserRouter([
   // {
@@ -56,18 +56,18 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+    ],
+  },
+  {
+    path: "/admin",
+    children: [
       {
-        path: "/admin",
-        children: [
-          {
-            path: "/admin/manage-courses",
-            element: <ManageCourses />,
-          },
-          {
-            path: "/admin/statistical-courses",
-            element: <ManageCourses />,
-          },
-        ],
+        path: "/admin/manage-courses",
+        element: <ManageCourses />,
+      },
+      {
+        path: "/admin/statistical-courses",
+        element: <ManageCourses />,
       },
     ],
   },
