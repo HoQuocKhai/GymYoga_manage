@@ -8,6 +8,8 @@ import NotFound404 from "../page/NotFound404";
 import ProtectedRoute from "../components/ProtectedRoute";
 import BookingPage from "../page/user/BookingPage";
 import ManageCourses from "../page/admin/ManageCourses";
+import StatisticalCourses from "../page/admin/StatisticalCourses";
+import AdminManage from "../page/admin/AdminManage";
 
 export const router = createBrowserRouter([
   // {
@@ -60,14 +62,23 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
+    element: <AdminManage />,
     children: [
       {
         path: "/admin/manage-courses",
-        element: <ManageCourses />,
+        element: (
+          <ProtectedRoute>
+            <ManageCourses />,
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/admin/statistical-courses",
-        element: <ManageCourses />,
+        element: (
+          <ProtectedRoute>
+            <StatisticalCourses />,
+          </ProtectedRoute>
+        ),
       },
     ],
   },

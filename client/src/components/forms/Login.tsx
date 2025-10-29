@@ -33,12 +33,12 @@ export default function Login() {
         title: "Success!",
         showConfirmButton: false,
         text: "Please wait a moment!",
-        timer: 2900,
+        timer: 1500,
       });
       setTimeout(() => {
         sessionStorage.setItem("user", JSON.stringify(user));
         navigate("/");
-      }, 3000);
+      }, 1600);
     } else if (input.email === "" || input.password === "") {
       Swal.fire({
         title: "Error!",

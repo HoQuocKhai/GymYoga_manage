@@ -1,11 +1,10 @@
-import { DatePicker, Form, Modal, Select, TimePicker } from "antd";
+import { DatePicker, Form, Modal, Select } from "antd";
 // import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../stores/store";
 import { addBooking } from "../../apis/booking.api";
 import type { Booking } from "../../types/userType";
-import dayjs from "dayjs";
 
 interface ModalNewCoursesProps {
   open: boolean;

@@ -25,13 +25,13 @@ export default function Header() {
       title: "Success!",
       text: "Đã đăng xuất thành công",
       icon: "success",
-      timer: 2000,
+      timer: 1500,
       showConfirmButton: false,
     });
     sessionStorage.setItem("user", JSON.stringify(null));
     setTimeout(() => {
       navigate("/auth/login");
-    }, 2100);
+    }, 1600);
   };
 
   return (
@@ -46,21 +46,21 @@ export default function Header() {
         <div className="flex gap-8 text-center  items-center">
           <Link
             to="/"
-            className="text-[18.6px] m-0 text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+            className="text-[18.6px] m-0 text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse"
           >
             Trang chủ
           </Link>
           {user?.rule === "admin" ? (
             <Link
               to="/admin/manage-courses"
-              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse"
             >
               Quản lý lịch
             </Link>
           ) : (
             <Link
               to="/booking"
-              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse"
             >
               Lịch đã đặt
             </Link>
@@ -81,14 +81,14 @@ export default function Header() {
               open={open}
               trigger="click"
               onOpenChange={handleOpenChange}
-              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse hover:cursor-pointer"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse hover:cursor-pointer"
             >
               {user.name}
             </Popover>
           ) : (
             <Link
               to="/auth/login"
-              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-1 transition-transform duration-300 hover:animate-pulse"
+              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse"
             >
               Đăng nhập
             </Link>
