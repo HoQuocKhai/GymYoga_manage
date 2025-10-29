@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import TableBooking from "../../components/common/TableBooking";
 import Footer from "../../components/common/Footer";
 import { useState } from "react";
-import ModalNewCourses from "../../components/forms/modalNewCourses";
+import ModalNewCourses from "../../components/forms/ModalNewCourses";
 
 export default function BookingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

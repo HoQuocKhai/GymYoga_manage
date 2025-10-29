@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import DrawerManageAdmin from "../../components/common/DrawerManageAdmin";
-import Footer from "../../components/common/Footer";
 
 export default function AdminManage() {
   return (
