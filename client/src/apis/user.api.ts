@@ -2,13 +2,23 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { User } from "../types/userType";
 
+const API_URL_USERS = "http://localhost:8080/users";
+
+//get user list
+export const getUserlist = createAsyncThunk(
+    "getUserList",
+    async () => {
+        const res = await axios.get(`${API_URL_USERS}`)
+        return res.data
+    }
+)
 
 //create new user
 export const createUser = createAsyncThunk(
     "createUser",
     async (newUser: User) => {
         try {
-            const res = await axios.post("http://localhost:8080/user", newUser);
+            const res = await axios.post(`${API_URL_USERS}`, newUser);
             return res.data;
         } catch (error) {
             console.error(error)
@@ -16,14 +26,23 @@ export const createUser = createAsyncThunk(
     }
 );
 
-//get user list
-export const getUserlist = createAsyncThunk(
-    "getUserList",
-    async () => {
-        const res = await axios.get("http://localhost:8080/user")
+//update user
+export const updateUser = createAsyncThunk(
+    "updateUser",
+    async (updated: User) => {
+        const res = await axios.put(`${API_URL_USERS}/${updated.id}`, updated);
         return res.data
     }
-)
+);
+
+//delete user
+export const deleteUser = createAsyncThunk(
+    "deleteUser",
+    async (id: string) => {
+        await axios.delete(`${API_URL_USERS}/${id}`);
+        return id;
+    }
+);
 
 //get courses 
 export const getCourses = createAsyncThunk(

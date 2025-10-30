@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { UserState } from "../types/userType";
-import { createUser, getUserlist } from "../apis/user.api";
+import { createUser, deleteUser, getUserlist, updateUser } from "../apis/user.api";
 
 const initialState: UserState = {
     users: [],
@@ -14,7 +14,7 @@ const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Thêm tài khoản người dùng
+            // POST USER
             .addCase(createUser.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -28,7 +28,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload as string;
             })
-            //fetch danh sách người dùng
+            // GET USERS
             .addCase(getUserlist.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -40,7 +40,16 @@ const userSlice = createSlice({
             .addCase(getUserlist.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
-            });
+            })
+            // UPDATE USER
+            .addCase(updateUser.fulfilled, (state, action) => {
+                const index = state.users.findIndex((s) => s.id === action.payload.id);
+                if (index !== -1) state.users[index] = action.payload;
+            })
+            // DELETE USER
+            .addCase(deleteUser.fulfilled, (state, action) => {
+                state.users = state.users.filter((s) => s.id !== action.payload);
+            })
     },
 });
 

@@ -6,7 +6,7 @@ import serviceReducer from "../slices/serviceSlice";
 
 export const store = configureStore({
     reducer: {
-        user: userReducer,
+        users: userReducer,
         courses: coursesReducer,
         booking: bookingReducer,
         service: serviceReducer,

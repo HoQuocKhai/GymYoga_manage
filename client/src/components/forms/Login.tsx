@@ -8,7 +8,7 @@ import { getUserlist } from "../../apis/user.api";
 import Swal from "sweetalert2";
 
 export default function Login() {
-  const { users } = useSelector((state: RootState) => state.user);
+  const { users } = useSelector((state: RootState) => state.users);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 

@@ -1,5 +1,5 @@
 {
-  "user": [
+  "users": [
     {
       "id": "001",
       "name": "Admin",
@@ -18,14 +18,21 @@
       "id": "107e",
       "name": "Co ca keo",
       "email": "rikkeiacademy@gmail.com",
-      "password": "123123123",
+      "password": "cocakeo123",
       "rule": "user"
     },
     {
       "id": "3aa5",
       "name": "abc",
       "email": "bonb2638@gmail.com",
-      "password": "123123123",
+      "password": "abc123123",
+      "rule": "user"
+    },
+    {
+      "id": "5051",
+      "name": "Nguyễn Văn A",
+      "email": "nguyenvana123@gmail.com",
+      "password": "nguyenvana123",
       "rule": "user"
     }
   ],

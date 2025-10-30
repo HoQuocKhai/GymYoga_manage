@@ -27,6 +27,16 @@ export default function DrawerManageAdmin() {
           Quản lý dịch vụ
         </NavLink>
         <NavLink
+          to="/admin/manage-users"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-[#4B5563] !rounded-[4px] !no-underline text-white !text-left pl-3 pr-1 py-1 !hover:px-5 duration-200 !hover:cursor-pointer"
+              : "hover:bg-[#4B5563] !rounded-[4px] !no-underline text-white !text-left pl-3 pr-1 py-1 hover:px-4 !hover:px-5 duration-200 !hover:cursor-pointer"
+          }
+        >
+          Quản lý người dùng
+        </NavLink>
+        <NavLink
           to="/"
           className={({ isActive }) =>
             isActive

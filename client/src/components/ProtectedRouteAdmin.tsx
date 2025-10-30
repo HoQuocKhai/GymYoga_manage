@@ -2,7 +2,11 @@ import { Navigate, useLocation } from "react-router-dom";
 import { type ReactNode } from "react";
 import type { User } from "../types/userType";
 
-export default function ProtectedRoute({ children }: { children: ReactNode }) {
+export default function ProtectedRouteAdmin({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
   const location = useLocation();
 

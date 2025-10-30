@@ -42,13 +42,9 @@ export default function CardManageCourses() {
   const { booking } = useSelector((state: RootState) => state.booking);
   const dispatch = useDispatch<AppDispatch>();
 
-  const { users } = useSelector((state: RootState) => state.user);
+  const { users } = useSelector((state: RootState) => state.users);
 
   const [bookingList, setBookingList] = useState<Booking[]>();
-
-  const GymBooking = () => {};
-  const YogaBooking = () => {};
-  const ZumbaBooking = () => {};
 
   // const bookingFilterWithUser = useFilterBooking(booking);
   // const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
@@ -103,7 +99,7 @@ export default function CardManageCourses() {
           swalWithBootstrapButtons.fire({
             title: "Đã Huỷ xoá lịch tập!",
             text: `Lớp: ${record.id}`,
-            icon: "success",
+            icon: "error",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -172,13 +168,13 @@ export default function CardManageCourses() {
       render: (_, record: Booking) => (
         <div className="flex gap-1">
           <button
-            className="px-3 py-2 text-blue-500 hover:shadow-md hover:bg-blue-500 hover:text-white !rounded-md"
+            className="px-3 py-2 text-blue-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-blue-500 hover:text-white !rounded-[1rem]"
             onClick={() => handleEdit(record)}
           >
             Sửa
           </button>
           <button
-            className="px-3 py-2 text-red-500 hover:shadow-md hover:bg-red-500 hover:text-white !rounded-md"
+            className="px-3 py-2 text-red-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-red-500 hover:text-white !rounded-[1rem]"
             onClick={() => handleConfirmDelete(record)}
           >
             Xoá
@@ -188,9 +184,9 @@ export default function CardManageCourses() {
     },
   ];
 
-  const handlFilterClass = (idClass: string) => {
-    const newCourseList = bookingData.filter((data) => (data.id = idClass));
-  };
+  // const handlFilterClass = (idClass: string) => {
+  //   const newCourseList = bookingData.filter((data) => (data.id = idClass));
+  // };
 
   return (
     <div className="flex flex-col flex-1 justify-start pl-[16rem] pb-[60rem] pr-[1rem] h-[75rem] bg-[#F9FAFB]">
@@ -222,7 +218,7 @@ export default function CardManageCourses() {
         <Form layout="vertical" className="">
           <div className="grid grid-cols-3 gap-4">
             <Form.Item label="Lớp học" name="courseId">
-              <Select placeholder="Chọn lớp" onChange={handlFilterClass}>
+              <Select placeholder="Chọn lớp">
                 <Select.Option value="all">tất cả</Select.Option>
                 <Select.Option value="101">101</Select.Option>
                 <Select.Option value="102">102</Select.Option>
@@ -245,7 +241,7 @@ export default function CardManageCourses() {
           columns={columns}
           dataSource={bookingData}
           bordered
-          pagination={{ pageSize: 3, align: "center", style: {} }}
+          pagination={{ pageSize: 3, position: ["bottomCenter"] }}
           rowKey="id"
         />
         {selectedBooking && (
