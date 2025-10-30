@@ -1,7 +1,6 @@
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { DatePicker, Form, Input, Select, Table } from "antd";
-import { Pagination } from "antd";
 import type { TableProps } from "antd";
 import { useEffect, useState } from "react";
 import "../../assets/tableBooking.css";
@@ -32,7 +31,7 @@ export default function CardManageCourses() {
     datasets: [
       {
         label: "Số lịch đã đặt",
-        data: [10, 20, 30],
+        data: [30, 50, 20],
         backgroundColor: ["#98a6f5", "#aed9c1", "#bab6f5"],
         borderColor: ["#6461c2", "#68bf63", "#6461c2"],
         borderWidth: 1,
@@ -46,6 +45,10 @@ export default function CardManageCourses() {
   const { users } = useSelector((state: RootState) => state.user);
 
   const [bookingList, setBookingList] = useState<Booking[]>();
+
+  const GymBooking = () => {};
+  const YogaBooking = () => {};
+  const ZumbaBooking = () => {};
 
   // const bookingFilterWithUser = useFilterBooking(booking);
   // const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
@@ -72,16 +75,23 @@ export default function CardManageCourses() {
   const handleConfirmDelete = (record: Booking) => {
     swalWithBootstrapButtons
       .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: `Bạn có chắc muốn Xoá lịch tập?`,
+        text: `Lớp: ${record.id}`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
         reverseButtons: true,
       })
       .then((result) => {
         if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire({
+            title: "Đã Xoá thành công lịch tập!",
+            text: `Lớp: ${record.id}`,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           dispatch(deleteBooking(record));
           setBookingList(
             (prev) =>
@@ -89,19 +99,13 @@ export default function CardManageCourses() {
                 (booking: Booking) => booking.courseId != record.courseId
               ))
           );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "Đã Huỷ xoá lịch tập!",
+            text: `Lớp: ${record.id}`,
             icon: "success",
-          });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "Your imaginary file is safe :)",
-            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
           });
         }
       });
@@ -168,13 +172,13 @@ export default function CardManageCourses() {
       render: (_, record: Booking) => (
         <div className="flex gap-1">
           <button
-            className="px-3 py-2 text-blue-500 hover:bg-blue-500 hover:text-white !rounded-md"
+            className="px-3 py-2 text-blue-500 hover:shadow-md hover:bg-blue-500 hover:text-white !rounded-md"
             onClick={() => handleEdit(record)}
           >
             Sửa
           </button>
           <button
-            className="px-3 py-2 text-red-500 hover:bg-red-500 hover:text-white !rounded-md"
+            className="px-3 py-2 text-red-500 hover:shadow-md hover:bg-red-500 hover:text-white !rounded-md"
             onClick={() => handleConfirmDelete(record)}
           >
             Xoá
@@ -184,8 +188,12 @@ export default function CardManageCourses() {
     },
   ];
 
+  const handlFilterClass = (idClass: string) => {
+    const newCourseList = bookingData.filter((data) => (data.id = idClass));
+  };
+
   return (
-    <div className="flex flex-col flex-1 justify-start pl-[16rem] pb-[60rem] pr-[1rem]">
+    <div className="flex flex-col flex-1 justify-start pl-[16rem] pb-[60rem] pr-[1rem] h-[75rem] bg-[#F9FAFB]">
       <div className="mb-6 font-bold font-[inter] text-[29px]">
         Thống kê lịch tập
       </div>
@@ -214,7 +222,7 @@ export default function CardManageCourses() {
         <Form layout="vertical" className="">
           <div className="grid grid-cols-3 gap-4">
             <Form.Item label="Lớp học" name="courseId">
-              <Select placeholder="Chọn lớp">
+              <Select placeholder="Chọn lớp" onChange={handlFilterClass}>
                 <Select.Option value="all">tất cả</Select.Option>
                 <Select.Option value="101">101</Select.Option>
                 <Select.Option value="102">102</Select.Option>
@@ -232,20 +240,13 @@ export default function CardManageCourses() {
           </div>
         </Form>
       </div>
-      <div className="p-2 shadow-md">
+      <div className="p-2 shadow-md bg-white rounded-2xl">
         <Table<Booking>
           columns={columns}
           dataSource={bookingData}
           bordered
-          pagination={false}
+          pagination={{ pageSize: 3, align: "center", style: {} }}
           rowKey="id"
-        />
-        <Pagination
-          defaultCurrent={1}
-          total={20}
-          pageSize={5}
-          // showSizeChanger={false}
-          className="flex flex-1 justify-center items-center m-3"
         />
         {selectedBooking && (
           <ModalEditBooking

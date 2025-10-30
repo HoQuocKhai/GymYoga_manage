@@ -73,16 +73,6 @@
   ],
   "bookings": [
     {
-      "id": "100",
-      "userId": "002",
-      "courseId": 103,
-      "bookingDate": "2025-10-31",
-      "bookingTime": "18:00",
-      "name": "Hồ Quốc Khải",
-      "email": "cocabon123@gmail.com",
-      "key": "100"
-    },
-    {
       "id": "101",
       "userId": "3aa5",
       "courseId": 101,
@@ -95,7 +85,41 @@
       "courseId": 102,
       "bookingDate": "2025-10-30",
       "bookingTime": "09:00"
+    },
+    {
+      "id": "103",
+      "userId": "002",
+      "courseId": 103,
+      "bookingDate": "2025-10-30",
+      "bookingTime": "09:00"
     }
   ],
-  "services": []
+  "services": [
+    {
+      "id": "101",
+      "name": "Gym Hiện Đại",
+      "type": "Gym",
+      "description": "Tập luyện với các thiết bị hiện đại.",
+      "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760609733/imageCard1_li42pj.png"
+    },
+    {
+      "id": "102",
+      "name": "Yoga Giảm Cân",
+      "type": "Yoga",
+      "description": "Thư giãn và cân bằng tâm trí.",
+      "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613019/ImageCard2_ekcfhy.png"
+    },
+    {
+      "id": "6b09",
+      "name": "Zumba Cường Độ Cao",
+      "description": "Đốt cháy calories với những điệu nhảy sôi động.",
+      "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613110/ImageCard3_eyocgx.png"
+    },
+    {
+      "id": "e666",
+      "name": "Cadio Đốt Mỡ",
+      "description": "Cadio cường độ cao đốt mỡ toàn thân giảm cân nhanh chóng",
+      "imageUrl": "https://res.cloudinary.com/daqjoat73/image/upload/v1760613110/ImageCard3_eyocgx.png"
+    }
+  ]
 }

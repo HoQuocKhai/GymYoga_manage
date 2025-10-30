@@ -3,7 +3,7 @@ import ButtonSweetalertLogOut from "../forms/ButtonSweetalertLogOut";
 
 export default function DrawerManageAdmin() {
   return (
-    <div className="fixed top-0 left-0 h-dvh w-dwh flex flex-col bg-[#1F2937] text-white gap-2 px-3 py-2 w-[15rem]">
+    <div className="fixed top-0 left-0 h-dvh w-dwh flex flex-col bg-[#1F2937] text-white gap-2 px-3 py-2 w-[15rem] ">
       <div className="mb-[1rem] font-bold text-[20.5px]">Admin Dashboard</div>
       <div className="flex flex-col gap-2 text-[19px]">
         <NavLink

@@ -10,6 +10,7 @@ import BookingPage from "../page/user/BookingPage";
 import ManageCourses from "../page/admin/ManageCourses";
 import StatisticalCourses from "../page/admin/StatisticalCourses";
 import AdminManage from "../page/admin/AdminManage";
+import Forbidden403 from "../page/Forbidden403";
 
 export const router = createBrowserRouter([
   // {
@@ -81,5 +82,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/forbidden",
+    element: <Forbidden403 />,
   },
 ]);

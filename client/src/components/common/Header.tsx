@@ -5,6 +5,14 @@ import { useState } from "react";
 import { LogoutOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
 
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: "btn btn-success me-2",
+    cancelButton: "btn btn-danger",
+  },
+  buttonsStyling: false,
+});
+
 export default function Header() {
   const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
   const navigate = useNavigate();
@@ -21,17 +29,36 @@ export default function Header() {
 
   //Log out
   const handleLogOut = () => {
-    Swal.fire({
-      title: "Success!",
-      text: "Đã đăng xuất thành công",
-      icon: "success",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-    sessionStorage.setItem("user", JSON.stringify(null));
-    setTimeout(() => {
-      navigate("/auth/login");
-    }, 1600);
+    swalWithBootstrapButtons
+      .fire({
+        title: "Bạn có chắc muốn đăng xuất?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire({
+            title: "Đã đăng xuất thành công!",
+            text: "Vui lòng đợi",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          sessionStorage.removeItem("user");
+          setTimeout(() => navigate("/auth/login"), 1600);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: "Huỷ đăng xuất!",
+            text: "Đã huỷ đăng xuất tài khoản.",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
