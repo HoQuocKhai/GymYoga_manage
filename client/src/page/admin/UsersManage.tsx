@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Modal, Form, Input, Button } from "antd";
+import { Table, Modal, Form, Input } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUserlist, updateUser } from "../../apis/user.api";
@@ -37,13 +37,13 @@ export default function UsersManage() {
       render: (_, record) => (
         <div className="flex flex-1 justify-start gap-2">
           <button
-            className="px-3 py-2 text-blue-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-blue-500 hover:text-white !rounded-[1rem]"
+            className="px-3 py-2 text-blue-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-blue-500 hover:text-white !rounded-[2rem]"
             onClick={() => handleEdit(record)}
           >
             Sửa
           </button>
           <button
-            className="px-3 py-2 text-red-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-red-500 hover:text-white !rounded-[1rem]"
+            className="px-3 py-2 text-red-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-red-500 hover:text-white !rounded-[2rem]"
             onClick={() => handlDelete(record)}
           >
             Xóa
@@ -123,9 +123,12 @@ export default function UsersManage() {
     <div className="pl-[16rem] pr-4 py-4 w-dvw">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Quản lý người dùng</h1>
-        <Button type="primary" onClick={() => navigate("/auth/register")}>
+        <button
+          onClick={() => navigate("/auth/register")}
+          className="cursor-pointer transition-all !text-[0.85rem] bg-blue-500 text-white px-3 py-1 !rounded-lg border-blue-600 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
+        >
           Thêm người dùng
-        </Button>
+        </button>
       </div>
 
       <div className="shadow-md p-3 bg-white rounded-2xl">

@@ -4,7 +4,6 @@ import Register from "../components/forms/Register";
 import AuthPage from "../page/auth/AuthPage";
 import Login from "../components/forms/Login";
 import Header from "../components/common/Header";
-import NotFound404 from "../page/Error/NotFound404";
 import ProtectedRoute from "../components/ProtectedRoute";
 import BookingPage from "../page/user/BookingPage";
 import ManageCourses from "../page/admin/ManageCourses";
@@ -13,25 +12,12 @@ import AdminManage from "../page/admin/AdminManage";
 import Forbidden403 from "../page/Error/Forbidden403";
 import ProtectedRouteAdmin from "../components/ProtectedRouteAdmin";
 import UserManage from "../page/admin/UsersManage";
+import Notfoundtest from "../page/Error/Notfoundtest";
 
 export const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <HomePage />,
-  // },
-  // {
-  //   path: "/auth/Login",
-  //   element: <AuthPage />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Login />,
-  //     },
-  //   ],
-  // },
   {
     path: "/",
-    errorElement: <NotFound404 />,
+    errorElement: <Notfoundtest />,
     element: <Header />,
     children: [
       {

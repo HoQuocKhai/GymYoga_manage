@@ -63,7 +63,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center mt-[5rem] not-last:">
+    <div className="flex flex-col items-center mt-[5rem]">
       <form className="w-[448px] h-[384px] flex flex-col flex-1 gap-4 rounded-[8px] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)] p-8">
         <p className="text-center text-[24.6px] font-bold m-0 font-[inter]">
           Đăng nhập

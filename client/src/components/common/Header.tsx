@@ -106,9 +106,10 @@ export default function Header() {
                 </Button>
               }
               open={open}
+              placement="bottomLeft"
               trigger="click"
               onOpenChange={handleOpenChange}
-              className="text-[18.6px] m-0  text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse hover:cursor-pointer"
+              className="text-[18.6px] m-0 text-white !no-underline hover:!text-blue-300 hover:!font-[500] hover:-translate-y-0.5 transition-transform duration-300 hover:animate-pulse hover:cursor-pointer"
             >
               {user.name}
             </Popover>
