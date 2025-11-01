@@ -12,7 +12,6 @@ import {
   getBooking,
   updateBooking,
 } from "../../apis/booking.api";
-// import useFilterBooking from "../../hooks/useFilterBooking";
 import Swal from "sweetalert2";
 import ModalEditBooking from "../../components/forms/ModalEditBooking";
 import { getUserlist } from "../../apis/user.api";
@@ -45,9 +44,6 @@ export default function CardManageCourses() {
   const { users } = useSelector((state: RootState) => state.users);
 
   const [bookingList, setBookingList] = useState<Booking[]>();
-
-  // const bookingFilterWithUser = useFilterBooking(booking);
-  // const user: User = JSON.parse(sessionStorage.getItem("user") || "null");
 
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
@@ -118,16 +114,13 @@ export default function CardManageCourses() {
     const payload: Booking = {
       ...selectedBooking,
       ...values,
-      // ensure bookingDate is string & coursesId/bookingTime preserved
       bookingDate: values.bookingDate ?? selectedBooking.bookingDate,
       bookingTime: values.bookingTime ?? selectedBooking.bookingTime,
       courseId: values.courseId ?? selectedBooking.courseId,
     } as Booking;
 
-    // dispatch update
     try {
       await dispatch(updateBooking(payload)).unwrap();
-      // optional: show success toast
     } catch (err) {
       console.error("Update failed:", err);
     } finally {
@@ -183,10 +176,6 @@ export default function CardManageCourses() {
       ),
     },
   ];
-
-  // const handlFilterClass = (idClass: string) => {
-  //   const newCourseList = bookingData.filter((data) => (data.id = idClass));
-  // };
 
   return (
     <div className="flex flex-col flex-1 justify-start pl-[16rem] pb-[60rem] pr-[1rem] h-[75rem] bg-[#F9FAFB]">

@@ -1,4 +1,4 @@
-import { Pagination, Table } from "antd";
+import { Table } from "antd";
 import type { TableProps } from "antd";
 import { useEffect, useState } from "react";
 import "../../assets/tableBooking.css";
@@ -43,22 +43,29 @@ export default function TableBooking() {
     ...item,
     name: user?.name,
     email: user?.email,
-    key: item.id, // Antd Table wants key
+    key: item.id,
   }));
 
   const handleConfirmDelete = (record: Booking) => {
     swalWithBootstrapButtons
       .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: `Bạn có chắc muốn Xoá Lịch tập?`,
+        text: ``,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
         reverseButtons: true,
       })
       .then((result) => {
         if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire({
+            title: "Đã Xoá thành công Lịch tập!",
+            text: ``,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           dispatch(deleteBooking(record));
           setBookingList(
             (prev) =>
@@ -66,19 +73,13 @@ export default function TableBooking() {
                 (booking: Booking) => booking.courseId != record.courseId
               ))
           );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success",
-          });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "Your imaginary file is safe :)",
+            title: "Đã Huỷ xoá Lịch tập!",
+            text: ``,
             icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
           });
         }
       });
@@ -95,22 +96,26 @@ export default function TableBooking() {
     const payload: Booking = {
       ...selectedBooking,
       ...values,
-      // ensure bookingDate is string & coursesId/bookingTime preserved
       bookingDate: values.bookingDate ?? selectedBooking.bookingDate,
       bookingTime: values.bookingTime ?? selectedBooking.bookingTime,
       courseId: values.courseId ?? selectedBooking.courseId,
     } as Booking;
 
-    // dispatch update
     try {
       await dispatch(updateBooking(payload)).unwrap();
-      // optional: show success toast
     } catch (err) {
       console.error("Update failed:", err);
     } finally {
       setIsEditOpen(false);
       setSelectedBooking(null);
     }
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      showConfirmButton: false,
+      text: "Đã Sửa thành công!",
+      timer: 1500,
+    });
   };
 
   const handleEditCancel = () => {
@@ -145,13 +150,13 @@ export default function TableBooking() {
       render: (_, record: Booking) => (
         <div className="flex gap-1">
           <button
-            className="px-3 py-2 text-blue-500 hover:bg-blue-500 hover:text-white !rounded-md"
+            className="px-3 py-2 text-blue-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-blue-500 hover:text-white !rounded-[2rem]"
             onClick={() => handleEdit(record)}
           >
             Sửa
           </button>
           <button
-            className="px-3 py-2 text-red-500 hover:bg-red-500 hover:text-white !rounded-md"
+            className="px-3 py-2 text-red-500 duration-200 hover:-translate-y-0.5 hover:!px-4 hover:!rounded-[8px] hover:shadow-md hover:bg-red-500 hover:text-white !rounded-[2rem]"
             onClick={() => handleConfirmDelete(record)}
           >
             Xoá
@@ -167,14 +172,8 @@ export default function TableBooking() {
         columns={columns}
         dataSource={bookingData}
         bordered
-        pagination={false}
         rowKey="id"
-      />
-
-      <Pagination
-        defaultCurrent={1}
-        total={50}
-        className="flex flex-1 justify-center items-center m-3"
+        pagination={{ pageSize: 3, position: ["bottomCenter"] }}
       />
 
       {selectedBooking && (

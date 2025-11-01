@@ -6,7 +6,6 @@ export default function useFilterBooking(bookings: Booking[] | null) {
 
     const user: User = JSON.parse(raw);
 
-    // ép kiểu về string hoặc number đồng nhất
     const BookingList = bookings?.filter(
         (booking) => String(booking.userId) === String(user.id)
     ) ?? [];

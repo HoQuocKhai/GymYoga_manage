@@ -12,17 +12,16 @@ import AdminManage from "../page/admin/AdminManage";
 import Forbidden403 from "../page/Error/Forbidden403";
 import ProtectedRouteAdmin from "../components/ProtectedRouteAdmin";
 import UserManage from "../page/admin/UsersManage";
-import Notfoundtest from "../page/Error/Notfoundtest";
+import NotFound404 from "../page/Error/NotFound404";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <Notfoundtest />,
+    errorElement: <NotFound404 />,
     element: <Header />,
     children: [
       {
         index: true,
-        // path: "/homePage",
         element: <HomePage />,
       },
       {

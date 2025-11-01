@@ -14,7 +14,7 @@ const bookingSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // fetch danh sách lịch đã đặt
+            // GET
             .addCase(getBooking.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -28,12 +28,12 @@ const bookingSlice = createSlice({
                 state.error = action.payload as string;
             })
 
-            // --- ADD BOOKING ---
+            // CREAT
             .addCase(addBooking.fulfilled, (state, action) => {
                 state.loading = false;
                 state.booking.push(action.payload);
             })
-            // --- UPDATE ---
+            // UPDATE
             .addCase(updateBooking.fulfilled, (state, action) => {
                 const index = state.booking.findIndex(
                     (b) => b.id === action.payload.id
@@ -42,7 +42,7 @@ const bookingSlice = createSlice({
                     state.booking[index] = action.payload;
                 }
             })
-            // --- DELETE ---
+            // DELETE
             .addCase(deleteBooking.fulfilled, (state, action) => {
                 state.booking = state.booking.filter((book) => book.id != action.payload)
             })

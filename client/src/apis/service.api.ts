@@ -4,15 +4,15 @@ import type { Service } from "../types/serviceType";
 
 const API_URL_SERVICES = "http://localhost:8080/services";
 
-// GET all
-export const getServices = createAsyncThunk("services/getAll", async () => {
+// GET
+export const getServices = createAsyncThunk("getServices", async () => {
     const res = await axios.get(API_URL_SERVICES);
     return res.data as Service[];
 });
 
-// ADD
+// CREATE
 export const addService = createAsyncThunk(
-    "services/add",
+    "addService",
     async (newService: Omit<Service, "id">) => {
         const res = await axios.post(API_URL_SERVICES, newService);
         return res.data as Service;
@@ -21,7 +21,7 @@ export const addService = createAsyncThunk(
 
 // UPDATE
 export const updateService = createAsyncThunk(
-    "services/update",
+    "updateService",
     async (updated: Service) => {
         const res = await axios.put(`${API_URL_SERVICES}/${updated.id}`, updated);
         return res.data as Service;
@@ -30,7 +30,7 @@ export const updateService = createAsyncThunk(
 
 // DELETE
 export const deleteService = createAsyncThunk(
-    "services/delete",
+    "deleteService",
     async (id: string) => {
         await axios.delete(`${API_URL_SERVICES}/${id}`);
         return id;

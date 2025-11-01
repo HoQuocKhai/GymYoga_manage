@@ -2,8 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { Booking } from "../types/userType";
 
-
-//get courses 
+// GET 
 export const getBooking = createAsyncThunk(
     "getBooking",
     async () => {
@@ -12,7 +11,7 @@ export const getBooking = createAsyncThunk(
     }
 )
 
-// POST thêm booking mới
+// POST
 export const addBooking = createAsyncThunk(
     "addBooking",
     async (newBooking: Booking) => {
@@ -25,7 +24,7 @@ export const addBooking = createAsyncThunk(
     }
 );
 
-// PUT update booking
+// UPDATE 
 export const updateBooking = createAsyncThunk(
     "updateBooking",
     async (updatedBooking: Booking) => {
@@ -41,7 +40,7 @@ export const updateBooking = createAsyncThunk(
     }
 );
 
-//  delete booking
+//  DELETE
 export const deleteBooking = createAsyncThunk(
     "deleteBooking",
     async (deleteBooking: Booking) => {

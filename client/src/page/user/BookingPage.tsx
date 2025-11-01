@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap";
 import TableBooking from "../../components/common/TableBooking";
 import Footer from "../../components/common/Footer";
 import { useState } from "react";
@@ -26,7 +25,12 @@ export default function BookingPage() {
           <p className="text-[31px] font-[700]] font-bold m-0">
             Quản lý lịch tập
           </p>
-          <Button onClick={showModal}>Đặt lịch mới</Button>
+          <button
+            onClick={showModal}
+            className="cursor-pointer transition-all !text-[1rem] bg-blue-500 text-white px-3.5 py-2 !rounded-lg border-blue-600 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
+          >
+            Đặt lịch mới
+          </button>
         </div>
         <TableBooking />
       </div>

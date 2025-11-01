@@ -4,7 +4,7 @@ import type { User } from "../types/userType";
 
 const API_URL_USERS = "http://localhost:8080/users";
 
-//get user list
+// GET
 export const getUserlist = createAsyncThunk(
     "getUserList",
     async () => {
@@ -13,7 +13,7 @@ export const getUserlist = createAsyncThunk(
     }
 )
 
-//create new user
+// CREATE
 export const createUser = createAsyncThunk(
     "createUser",
     async (newUser: User) => {
@@ -26,7 +26,7 @@ export const createUser = createAsyncThunk(
     }
 );
 
-//update user
+// UPDATE
 export const updateUser = createAsyncThunk(
     "updateUser",
     async (updated: User) => {
@@ -35,7 +35,7 @@ export const updateUser = createAsyncThunk(
     }
 );
 
-//delete user
+// DELETE
 export const deleteUser = createAsyncThunk(
     "deleteUser",
     async (id: string) => {
@@ -44,7 +44,7 @@ export const deleteUser = createAsyncThunk(
     }
 );
 
-//get courses 
+// GET COURSES
 export const getCourses = createAsyncThunk(
     "getCourses",
     async () => {
